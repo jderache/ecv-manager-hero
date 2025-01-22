@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {RainbowButton} from "@/components/ui/rainbow-button";
 import {Score} from "@/components/ui/score";
 import {GameCard} from "@/components/ui/card-ui";
+import Link from "next/link";
 
 const MovingBubbles = () => {
 	const [bubbles, setBubbles] = useState<
@@ -67,20 +68,10 @@ export default function GamePage() {
 		<div className="relative min-h-screen flex flex-col items-center justify-center">
 			<MovingBubbles />
 			<div className="text-center space-y-8 relative">
-				<h1 className="text-4xl font-bold mb-8 px-8">Il n&apos;a jamais été aussi facile d&apos;apprendre la gestion de projet&nbsp;!</h1>
-				<RainbowButton>Jouer&nbsp;!</RainbowButton>
-				<Score value={score}></Score>
-				<RainbowButton onClick={() => setScore((prev) => prev + 1)}>Incrémenter le score</RainbowButton>
-				<GameCard
-					author={{
-						avatar: "https://i.pravatar.cc/150",
-						name: "Julien DERACHE",
-						poste: "Front-end dev",
-					}}
-					priority="low"
-					content={{
-						text: "Erreur 404 sur la Homepage",
-					}}></GameCard>
+				<h1 className="text-4xl font-bold mb-8 px-8">Devenez un as de la gestion de projet... en jouant !</h1>
+				<Link href="/game">
+					<RainbowButton>Jouer&nbsp;!</RainbowButton>
+				</Link>
 			</div>
 		</div>
 	);
