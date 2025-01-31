@@ -12,6 +12,11 @@ type GameContextType = {
     resolveTicket: (ticket: Ticket, answer: TicketType) => void;
     isRush: boolean;
     setIsRush: (isRush: boolean) => void;
+    results: {
+        type: TicketType;
+        errors: number;
+        resolved: number;
+    }[];
 };
 
 export type TicketType = "bug" | "feature" | "support" | "technical";
@@ -32,6 +37,16 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
     const [playTime, setPlayTime] = useState(0);
     const [isRush, setIsRush] = useState(false);
     const [rushTimeout, setRushTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [results, setResults] = useState<{
+        type: TicketType;
+        errors: number;
+        resolved: number;
+    }[]>([
+        { type: "bug", errors: 0, resolved: 0 },
+        { type: "feature", errors: 0, resolved: 0 },
+        { type: "support", errors: 0, resolved: 0 },
+        { type: "technical", errors: 0, resolved: 0 },
+    ]);
 
     const generateTicket = () => {
         setCurrentTickets(prevCurrentTickets => {
@@ -91,7 +106,8 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
 
                     const isExpired = now - ticket.createdAt >= ticket.lifetime;
                     if (isExpired) {
-                        updateScore(-15);
+                        // divide by 2 because this useEffect is called twice
+                        updateScore(-15 / 2);
                     }
                     return !isExpired;
                 });
@@ -121,11 +137,28 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
         setIsRush(false);
     };
 
+    const updateResults = (ticketType: TicketType, isResolved: boolean) => {
+        setResults(prevResults => {
+            return prevResults.map(result => {
+                if (result.type === ticketType) {
+                    return {
+                        ...result,
+                        errors: isResolved ? result.errors : result.errors + 1,
+                        resolved: isResolved ? result.resolved + 1 : result.resolved,
+                    };
+                }
+                return result;
+            });
+        });
+    };
+
     const resolveTicket = (ticket: Ticket, answer: TicketType) => {
         if (ticket.type === answer) {
             updateScore(10);
+            updateResults(ticket.type, true);
         } else {
             updateScore(-30);
+            updateResults(ticket.type, false);
         }
 
         removeTicket(ticket);
@@ -164,7 +197,8 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
             end,
             resolveTicket,
             isRush,
-            setIsRush: handleSetIsRush
+            setIsRush: handleSetIsRush,
+            results,
         }}>
             {children}
         </GameContext.Provider>

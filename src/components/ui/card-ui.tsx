@@ -1,6 +1,6 @@
 "use client";
 
-import { Ticket, TicketType, useGameContext } from "@/contexts/gameContext";
+import { TicketType, useGameContext } from "@/contexts/gameContext";
 import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown, ArrowRight, Check, X } from "lucide-react";
 import Image from "next/image";
@@ -8,7 +8,9 @@ import { useState } from "react";
 import { ProgressBar } from "./progress-bar";
 
 interface GameCardProps {
-	ticket: Ticket;
+	ticket: Ticket & {
+		createdAt?: number;
+	};
 }
 
 export function GameCard({ ticket }: GameCardProps) {
@@ -82,7 +84,7 @@ export function GameCard({ ticket }: GameCardProps) {
 					<p className="text-2xl font-bold mb-4">{ticket.title}</p>
 
 					<ProgressBar
-						startTime={ticket.createdAt}
+						startTime={ticket.createdAt ?? 0}
 						lifetime={ticket.lifetime}
 						className="mb-4"
 					/>
@@ -90,7 +92,7 @@ export function GameCard({ ticket }: GameCardProps) {
 					<p className="text-zinc-600 dark:text-zinc-300 mb-4">{ticket.description}</p>
 
 					<div className="flex flex-col items-center border border-zinc-200 rounded-xl px-8 py-4 gap-2">
-						<p>Quel est le statut du ticket&nbsp;?&nbsp;🤔&nbsp;</p>
+						<p>What is the status of the ticket&nbsp;?&nbsp;🤔&nbsp;</p>
 						<div className="flex items-center gap-2 p-2">
 							<button
 								onClick={() => handleResolve("bug")}
@@ -100,13 +102,13 @@ export function GameCard({ ticket }: GameCardProps) {
 								Bug
 							</button>
 							<button onClick={() => handleResolve("technical")} type="button" className="text-sm px-4 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-500/20 transition-colors">
-								Technique
+								Technical
 							</button>
 							<button onClick={() => handleResolve("support")} type="button" className="text-sm px-4 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-500/20 transition-colors">
 								Support
 							</button>
 							<button onClick={() => handleResolve("feature")} type="button" className="text-sm px-4 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-500/20 transition-colors">
-								Fonctionnalité
+								Feature
 							</button>
 						</div>
 					</div>

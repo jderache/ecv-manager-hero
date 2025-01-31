@@ -26,7 +26,7 @@ export default function Game() {
                                 <Score value={score} />
                             </div>
                             <div className="text-center">
-                                <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-1">Temps</p>
+                                <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-1">Time</p>
                                 <div className="font-bold text-4xl">{formatTime(playTime)}</div>
                             </div>
                         </div>

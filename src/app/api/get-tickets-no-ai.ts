@@ -1,11 +1,13 @@
-export async function getTickets() {
+export async function getTickets(): Promise<{
+    tickets: Ticket[]
+}> {
     return {
         tickets: [
             {
                 id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                 type: "bug",
-                title: "Erreur 404 sur la page de paiement",
-                description: "Les utilisateurs reçoivent une erreur 404 lors de la redirection vers la page de paiement après validation du panier. Problème survenu après la dernière mise à jour.",
+                title: "404 Error on Payment Page",
+                description: "Users receive a 404 error when redirecting to the payment page after cart validation. Problem occurred after the latest update.",
                 priority: "critical",
                 lifetime: 5000,
                 author: {
@@ -17,8 +19,8 @@ export async function getTickets() {
             {
                 id: "550e8400-e29b-41d4-a716-446655440000",
                 type: "feature",
-                title: "Ajout d'authentification à deux facteurs",
-                description: "Implémenter une authentification à deux facteurs par SMS ou application mobile pour renforcer la sécurité des comptes utilisateurs.",
+                title: "Add Two-Factor Authentication",
+                description: "Implement two-factor authentication via SMS or mobile app to enhance user account security.",
                 priority: "high",
                 lifetime: 10000,
                 author: {
@@ -30,8 +32,8 @@ export async function getTickets() {
             {
                 id: "7c9e6679-7425-40de-944b-e07fc1f90ae7",
                 type: "support",
-                title: "Problème de synchronisation calendrier",
-                description: "Plusieurs utilisateurs signalent des problèmes de synchronisation entre le calendrier de l'application et Google Calendar.",
+                title: "Calendar Synchronization Issue",
+                description: "Multiple users report synchronization issues between the application calendar and Google Calendar.",
                 priority: "medium",
                 lifetime: 20000,
                 author: {
@@ -43,8 +45,8 @@ export async function getTickets() {
             {
                 id: "8c9e6679-7425-40de-944b-e07fc1f90ae8",
                 type: "technical",
-                title: "Optimisation des requêtes SQL",
-                description: "Les requêtes sur la table des commandes prennent trop de temps. Nécessité d'optimiser les index et les requêtes pour améliorer les performances.",
+                title: "SQL Query Optimization",
+                description: "Queries on the orders table are taking too long. Need to optimize indexes and queries to improve performance.",
                 priority: "high",
                 lifetime: 10000,
                 author: {
@@ -56,8 +58,8 @@ export async function getTickets() {
             {
                 id: "9c9e6679-7425-40de-944b-e07fc1f90ae9",
                 type: "bug",
-                title: "Erreur d'affichage sur mobile",
-                description: "Le menu déroulant ne s'affiche pas correctement sur les appareils iOS en mode paysage.",
+                title: "Mobile Display Error",
+                description: "The dropdown menu doesn't display correctly on iOS devices in landscape mode.",
                 priority: "medium",
                 lifetime: 20000,
                 author: {
@@ -69,8 +71,8 @@ export async function getTickets() {
             {
                 id: "ac9e6679-7425-40de-944b-e07fc1f90aea",
                 type: "feature",
-                title: "Export des données en PDF",
-                description: "Ajouter la possibilité d'exporter les rapports mensuels au format PDF avec mise en page personnalisée.",
+                title: "Export Data to PDF",
+                description: "Add the ability to export monthly reports to PDF format with custom layout.",
                 priority: "low",
                 lifetime: 30000,
                 author: {
@@ -82,8 +84,8 @@ export async function getTickets() {
             {
                 id: "bc9e6679-7425-40de-944b-e07fc1f90aeb",
                 type: "support",
-                title: "Réinitialisation mot de passe",
-                description: "Les emails de réinitialisation de mot de passe ne sont pas reçus par les utilisateurs ayant une adresse @hotmail.fr",
+                title: "Password Reset Issue",
+                description: "Password reset emails are not being received by users with @hotmail.fr addresses.",
                 priority: "high",
                 lifetime: 10000,
                 author: {
@@ -95,8 +97,8 @@ export async function getTickets() {
             {
                 id: "cc9e6679-7425-40de-944b-e07fc1f90aec",
                 type: "technical",
-                title: "Mise à jour sécurité Node.js",
-                description: "Mise à jour urgente requise pour corriger une faille de sécurité critique dans la version actuelle de Node.js",
+                title: "Node.js Security Update",
+                description: "Urgent update required to fix a critical security vulnerability in the current Node.js version.",
                 priority: "critical",
                 lifetime: 5000,
                 author: {
@@ -108,8 +110,8 @@ export async function getTickets() {
             {
                 id: "dc9e6679-7425-40de-944b-e07fc1f90aed",
                 type: "bug",
-                title: "Calcul incorrect des remises",
-                description: "Le système calcule mal les remises lorsque plusieurs codes promotionnels sont appliqués simultanément.",
+                title: "Incorrect Discount Calculation",
+                description: "The system calculates discounts incorrectly when multiple promotional codes are applied simultaneously.",
                 priority: "high",
                 lifetime: 10000,
                 author: {
@@ -121,8 +123,8 @@ export async function getTickets() {
             {
                 id: "ec9e6679-7425-40de-944b-e07fc1f90aee",
                 type: "feature",
-                title: "Integration API LinkedIn",
-                description: "Permettre aux utilisateurs de se connecter et de partager du contenu via leur compte LinkedIn.",
+                title: "LinkedIn API Integration",
+                description: "Allow users to connect and share content through their LinkedIn account.",
                 priority: "medium",
                 lifetime: 20000,
                 author: {
@@ -134,8 +136,8 @@ export async function getTickets() {
             {
                 id: "fc9e6679-7425-40de-944b-e07fc1f90aef",
                 type: "support",
-                title: "Problème d'impression des factures",
-                description: "Les factures générées au format A4 présentent des problèmes de mise en page lors de l'impression.",
+                title: "Invoice Printing Issue",
+                description: "A4 format invoices show layout problems when printing.",
                 priority: "low",
                 lifetime: 30000,
                 author: {
@@ -147,8 +149,8 @@ export async function getTickets() {
             {
                 id: "gc9e6679-7425-40de-944b-e07fc1f90aeg",
                 type: "technical",
-                title: "Migration base de données",
-                description: "Planification et exécution de la migration de la base de données vers PostgreSQL 14.",
+                title: "Database Migration",
+                description: "Planning and execution of database migration to PostgreSQL 14.",
                 priority: "medium",
                 lifetime: 20000,
                 author: {
@@ -160,4 +162,3 @@ export async function getTickets() {
         ],
     };
 }
-

@@ -20,7 +20,7 @@ export async function getTickets(count: number): Promise<{
 		    position: string
 		}
 
-		Les tickets doivent être réalistes, variés et les titres et descriptions doivent être en français.`;
+		Les tickets doivent être réalistes, variés et les titres et descriptions doivent être en anglais.`;
 
     const message = await anthropic.messages.create({
         model: "claude-3-5-sonnet-20241022",

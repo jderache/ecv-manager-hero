@@ -1,6 +1,8 @@
+type TicketType = "bug" | "feature" | "support" | "technical";
+
 type Ticket = {
     id: string;
-    type: string;
+    type: TicketType;
     title: string;
     description: string;
     priority: string;

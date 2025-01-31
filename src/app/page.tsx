@@ -60,19 +60,19 @@ const MovingBubbles = () => {
 };
 
 export default function GamePage() {
-	return (
-		<div className="relative min-h-screen flex flex-col items-center justify-center">
-			<MovingBubbles />
-			<div className="text-center space-y-8 relative">
-				<h1 className="text-4xl font-bold mb-8 px-8">
-					Devenez un as de la gestion de projet...
-					<br />
-					en jouant !
-				</h1>
-				<Link href="/game">
-					<RainbowButton>Let&apos;s go&nbsp;!</RainbowButton>
-				</Link>
-			</div>
-		</div>
-	);
+  return (
+    <div className="relative min-h-screen flex flex-col items-center justify-center">
+      <MovingBubbles />
+      <div className="text-center space-y-8 relative">
+        <h1 className="text-4xl font-bold mb-8 px-8">
+          Become a project management expert...
+          <br />
+          by playing !
+        </h1>
+        <Link href="/game">
+          <RainbowButton>Let&apos;s go&nbsp;!</RainbowButton>
+        </Link>
+      </div>
+    </div>
+  );
 }
