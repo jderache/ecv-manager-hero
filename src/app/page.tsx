@@ -65,25 +65,25 @@ const features = [
     step: 'Step 1', 
     title: 'Triez les tickets',
     content: 'Analysez et classifiez rapidement les tickets entrants en 4 catégories : bugs, features, support et technique. Chaque bonne classification rapporte 10 points !', 
-			image: '/images/1.png' // Une image montrant différents types de tickets
+			image: '/images/1.png'
 		},
   { 
     step: 'Step 2',
     title: 'Gérez votre score',
     content: 'Maintenez votre score au-dessus de 0. Attention aux erreurs de classification qui vous coûtent 30 points, et aux tickets expirés qui en retirent 15 !',
-    image: '/images/2.png' // Une image montrant un compteur de score
+    image: '/images/2.png'
   },
   { 
     step: 'Step 3',
     title: 'Survivez au Rush',
     content: 'Préparez-vous aux périodes de rush où les tickets arrivent plus rapidement. Gardez votre sang-froid pendant ces 10 secondes intenses !',
-    image: '/images/3.png' // Une image montrant beaucoup de tickets qui arrivent
+    image: '/images/3.png'
   },
   { 
     step: 'Step 4',
     title: 'Battez des records',
     content: 'Démarrez avec 100 points et voyez combien de temps vous pouvez tenir. Chaque seconde compte dans cette course contre la montre !',
-    image: '/images/4.png' // Une image montrant un chronomètre
+    image: '/images/4.png'
   },
 ]
 

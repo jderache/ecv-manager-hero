@@ -21,7 +21,7 @@ interface FeatureStepsProps {
 	imageHeight?: string;
 }
 
-export function FeatureSteps({features, className, title = "How to get Started", subtitle = "Follow these steps to get started with our platform", autoPlayInterval = 3000, imageHeight = "h-[400px]"}: FeatureStepsProps) {
+export function FeatureSteps({features, className, title = "How to get Started", subtitle = "Follow these steps to get started with our platform", autoPlayInterval = 3000}: FeatureStepsProps) {
 	const [currentFeature, setCurrentFeature] = useState(0);
 	const [progress, setProgress] = useState(0);
 
