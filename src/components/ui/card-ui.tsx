@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ArrowUp, ArrowDown, ArrowRight, Check, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { ProgressBar } from "./progress-bar";
 
 interface GameCardProps {
 	ticket: Ticket;
@@ -78,9 +79,14 @@ export function GameCard({ ticket }: GameCardProps) {
 						</div>
 					</div>
 
-					<p className="text-2xl font-bold">{ticket.title}</p>
+					<p className="text-2xl font-bold mb-4">{ticket.title}</p>
 
-					{/* Content section */}
+					<ProgressBar
+						startTime={ticket.createdAt}
+						lifetime={ticket.lifetime}
+						className="mb-4"
+					/>
+
 					<p className="text-zinc-600 dark:text-zinc-300 mb-4">{ticket.description}</p>
 
 					<div className="flex flex-col items-center border border-zinc-200 rounded-xl px-8 py-4 gap-2">
