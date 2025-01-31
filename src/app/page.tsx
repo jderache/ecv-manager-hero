@@ -59,30 +59,29 @@ const MovingBubbles = () => {
     </div>
   );
 };
-
 const features = [
   {
     step: 'Step 1',
-    title: 'Triez les tickets',
-    content: 'Analysez et classifiez rapidement les tickets entrants en 4 catégories : bugs, features, support et technique. Chaque bonne classification rapporte 10 points !',
+    title: 'Sort Tickets',
+    content: 'Quickly analyze and classify incoming tickets into 4 categories: bugs, features, support, and technical. Each correct classification earns you 10 points!',
     image: '/images/1.png'
   },
   {
     step: 'Step 2',
-    title: 'Gérez votre score',
-    content: 'Maintenez votre score au-dessus de 0. Attention aux erreurs de classification qui vous coûtent 30 points, et aux tickets expirés qui en retirent 15 !',
+    title: 'Manage Your Score',
+    content: 'Keep your score above 0. Watch out for misclassifications that cost you 30 points, and expired tickets that deduct 15!',
     image: '/images/2.png'
   },
   {
     step: 'Step 3',
-    title: 'Survivez au Rush',
-    content: 'Préparez-vous aux périodes de rush où les tickets arrivent plus rapidement. Gardez votre sang-froid pendant ces 10 secondes intenses !',
+    title: 'Survive the Rush',
+    content: 'Prepare for rush periods when tickets arrive faster. Keep your cool during these intense 10 seconds!',
     image: '/images/3.png'
   },
   {
     step: 'Step 4',
-    title: 'Battez des records',
-    content: 'Démarrez avec 100 points et voyez combien de temps vous pouvez tenir. Chaque seconde compte dans cette course contre la montre !',
+    title: 'Beat Records',
+    content: 'Start with 100 points and see how long you can last. Every second counts in this race against the clock!',
     image: '/images/4.png'
   },
 ]

@@ -66,7 +66,7 @@ export function GameOver() {
                         </div>
                         <div className="pt-4">
                             <RainbowButton onClick={start} className="w-full">
-                                Rejouer
+                                Try again!
                             </RainbowButton>
                         </div>
                     </div>
