@@ -24,7 +24,7 @@ export function GameOver() {
     return (
         <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
             <div className="flex items-center justify-center min-h-screen">
-                <div className="relative bg-card w-full max-w-lg rounded-xl border p-8 shadow-lg">
+                <div className="relative bg-card w-full max-w-lg rounded-xl border p-8 shadow-lg mx-10">
                     <h2 className="text-4xl font-bold text-center mb-8">Game Over!</h2>
 
                     <div className="space-y-6">
