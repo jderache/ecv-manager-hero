@@ -1,5 +1,3 @@
-"use client";
-
 import React, {useEffect, useState} from "react";
 import {cn} from "@/lib/utils";
 
@@ -33,5 +31,5 @@ export function Score({value, className}: ScoreProps) {
 		}
 	}, [value, displayValue]);
 
-	return <div className={cn("font-bold text-4xl transition-transform", isAnimating && "animate-[bounce_0.5s_ease-in-out]", className)}>{displayValue}</div>;
+	return <div className={cn("font-bold text-4xl transition-all duration-200", isAnimating && "animate-[bounce_0.5s_ease-in-out]", className)}>{displayValue}</div>;
 }
