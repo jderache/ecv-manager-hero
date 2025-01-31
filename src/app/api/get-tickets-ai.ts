@@ -20,10 +20,30 @@ export async function getTickets(count: number): Promise<{
 		    position: string
 		}
 
+        donne moi un json de ce format: 
+
+        {
+            "tickets": [
+                {
+                    "id": "1",
+                    "type": "bug",
+                    "title": "Bug 1",
+                    "description": "Description du bug 1",
+                    "priority": "low",
+                    "lifetime": 30000,
+                    "author": {
+                        "firstname": "John",
+                        "lastname": "Doe",
+                        "position": "Developer"
+                    }
+                }
+            ]
+        }
+
 		Les tickets doivent être réalistes, variés et les titres et descriptions doivent être en anglais.`;
 
     const message = await anthropic.messages.create({
-        model: "claude-3-5-sonnet-20241022",
+        model: "claude-3-5-haiku-20241022",
         max_tokens: 2000,
         messages: [
             {
@@ -33,6 +53,8 @@ export async function getTickets(count: number): Promise<{
         ],
         temperature: 0.9
     });
+
+    console.log(message.content[0] as { text: string });
 
     return JSON.parse((message.content[0] as { text: string }).text);
 }
