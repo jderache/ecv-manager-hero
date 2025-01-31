@@ -2,8 +2,6 @@
 
 import React, {useEffect, useState} from "react";
 import {RainbowButton} from "@/components/ui/rainbow-button";
-import {Score} from "@/components/ui/score";
-import {GameCard} from "@/components/ui/card-ui";
 import Link from "next/link";
 
 const MovingBubbles = () => {
@@ -62,15 +60,17 @@ const MovingBubbles = () => {
 };
 
 export default function GamePage() {
-	const [score, setScore] = useState(10);
-
 	return (
 		<div className="relative min-h-screen flex flex-col items-center justify-center">
 			<MovingBubbles />
 			<div className="text-center space-y-8 relative">
-				<h1 className="text-4xl font-bold mb-8 px-8">Devenez un as de la gestion de projet... en jouant !</h1>
+				<h1 className="text-4xl font-bold mb-8 px-8">
+					Devenez un as de la gestion de projet...
+					<br />
+					en jouant !
+				</h1>
 				<Link href="/game">
-					<RainbowButton>Jouer&nbsp;!</RainbowButton>
+					<RainbowButton>Let&apos;s go&nbsp;!</RainbowButton>
 				</Link>
 			</div>
 		</div>
