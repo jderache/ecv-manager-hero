@@ -1,7 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { OpenAI } from 'openai';
 
-const anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
+const openai = new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
 });
 
 export async function getTickets(count: number): Promise<{
@@ -42,9 +42,8 @@ export async function getTickets(count: number): Promise<{
 
 		Les tickets doivent être réalistes, variés et les titres et descriptions doivent être en anglais.`;
 
-    const message = await anthropic.messages.create({
-        model: "claude-3-5-haiku-20241022",
-        max_tokens: 2000,
+    const message = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
         messages: [
             {
                 role: "user",
@@ -54,7 +53,9 @@ export async function getTickets(count: number): Promise<{
         temperature: 0.9
     });
 
-    console.log(message.content[0] as { text: string });
+    if (!message.choices[0].message.content) {
+        throw new Error("No content");
+    }
 
-    return JSON.parse((message.content[0] as { text: string }).text);
+    return JSON.parse(message.choices[0].message.content);
 }

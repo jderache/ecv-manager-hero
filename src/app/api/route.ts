@@ -5,7 +5,7 @@ import { getTickets as getTicketsNoAi } from "./get-tickets-no-ai";
 export async function GET(request: Request) {
     try {
         const url = new URL(request.url);
-        const count = parseInt(url.searchParams.get('count') || '12');
+        const count = parseInt(url.searchParams.get('count') || '15');
 
         let tickets: {
             tickets: Ticket[]

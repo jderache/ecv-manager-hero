@@ -3,7 +3,7 @@ import { GameContextProvider } from "@/contexts/gameContext";
 import { redirect, RedirectType } from "next/navigation";
 
 export default async function Page() {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}?count=12`, {
+  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}?count=30`, {
     cache: 'no-store'
   }).then(res => {
     if (res.status !== 200) {
