@@ -1,62 +1,62 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
-import {RainbowButton} from "@/components/ui/rainbow-button";
+import React, { useEffect, useState } from "react";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import Link from "next/link";
 
 const MovingBubbles = () => {
-	const [bubbles, setBubbles] = useState<
-		Array<{
-			width: number;
-			height: number;
-			left: number;
-			top: number;
-			delay: number;
-			index: number;
-		}>
-	>([]);
+  const [bubbles, setBubbles] = useState<
+    Array<{
+      width: number;
+      height: number;
+      left: number;
+      top: number;
+      delay: number;
+      index: number;
+    }>
+  >([]);
 
-	useEffect(() => {
-		setBubbles(
-			[...Array(15)].map((_, i) => ({
-				width: Math.random() * 100 + 50,
-				height: Math.random() * 100 + 50,
-				left: Math.random() * 100,
-				top: Math.random() * 100,
-				delay: Math.random() * 5,
-				index: i,
-			})),
-		);
+  useEffect(() => {
+    setBubbles(
+      [...Array(15)].map((_, i) => ({
+        width: Math.random() * 100 + 50,
+        height: Math.random() * 100 + 50,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        delay: Math.random() * 5,
+        index: i,
+      })),
+    );
 
-		const moveInterval = setInterval(() => {
-			setBubbles((prevBubbles) =>
-				prevBubbles.map((bubble) => ({
-					...bubble,
-					left: (bubble.left + 0.1) % 100,
-					top: (bubble.top + 0.05 * Math.sin(bubble.left / 10)) % 100,
-				})),
-			);
-		}, 50);
+    const moveInterval = setInterval(() => {
+      setBubbles((prevBubbles) =>
+        prevBubbles.map((bubble) => ({
+          ...bubble,
+          left: (bubble.left + 0.1) % 100,
+          top: (bubble.top + 0.05 * Math.sin(bubble.left / 10)) % 100,
+        })),
+      );
+    }, 50);
 
-		return () => clearInterval(moveInterval);
-	}, []);
+    return () => clearInterval(moveInterval);
+  }, []);
 
-	return (
-		<div className="fixed inset-0 overflow-hidden">
-			{bubbles.map((bubble) => (
-				<div
-					key={bubble.index}
-					className="absolute rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 transition-all duration-[2000ms] ease-linear"
-					style={{
-						width: `${bubble.width}px`,
-						height: `${bubble.height}px`,
-						left: `${bubble.left}%`,
-						top: `${bubble.top}%`,
-					}}
-				/>
-			))}
-		</div>
-	);
+  return (
+    <div className="fixed inset-0 overflow-hidden">
+      {bubbles.map((bubble) => (
+        <div
+          key={bubble.index}
+          className="absolute rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 transition-all duration-[2000ms] ease-linear"
+          style={{
+            width: `${bubble.width}px`,
+            height: `${bubble.height}px`,
+            left: `${bubble.left}%`,
+            top: `${bubble.top}%`,
+          }}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default function GamePage() {

@@ -1,4 +1,4 @@
-export type Ticket = {
+type Ticket = {
     id: string;
     type: string;
     title: string;
@@ -10,5 +10,4 @@ export type Ticket = {
         position: string;
     }
     lifetime: number;
-    createdAt: string;
 }
