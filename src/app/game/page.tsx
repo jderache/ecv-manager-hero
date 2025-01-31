@@ -1,4 +1,5 @@
 import Game from "@/components/game";
+import { GameContextProvider } from "@/contexts/gameContext";
 import { redirect, RedirectType } from "next/navigation";
 
 export default async function Page() {
@@ -11,6 +12,8 @@ export default async function Page() {
   }
 
   return (
-    <Game tickets={result.tickets} />
+    <GameContextProvider tickets={result.tickets}>
+      <Game />
+    </GameContextProvider>
   );
 }

@@ -10,5 +10,4 @@ type Ticket = {
         position: string;
     }
     lifetime: number;
-    createdAt: string;
 }

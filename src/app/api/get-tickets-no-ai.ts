@@ -13,7 +13,6 @@ export async function getTickets() {
                     lastname: "Martin",
                     position: "QA Engineer",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "550e8400-e29b-41d4-a716-446655440000",
@@ -27,7 +26,6 @@ export async function getTickets() {
                     lastname: "Dubois",
                     position: "Security Engineer",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "7c9e6679-7425-40de-944b-e07fc1f90ae7",
@@ -41,7 +39,6 @@ export async function getTickets() {
                     lastname: "Bernard",
                     position: "Support Technique",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "8c9e6679-7425-40de-944b-e07fc1f90ae8",
@@ -55,7 +52,6 @@ export async function getTickets() {
                     lastname: "Petit",
                     position: "Lead Developer",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "9c9e6679-7425-40de-944b-e07fc1f90ae9",
@@ -69,7 +65,6 @@ export async function getTickets() {
                     lastname: "Moreau",
                     position: "Frontend Developer",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "ac9e6679-7425-40de-944b-e07fc1f90aea",
@@ -83,7 +78,6 @@ export async function getTickets() {
                     lastname: "Durand",
                     position: "Product Owner",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "bc9e6679-7425-40de-944b-e07fc1f90aeb",
@@ -97,7 +91,6 @@ export async function getTickets() {
                     lastname: "Laurent",
                     position: "Support Manager",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "cc9e6679-7425-40de-944b-e07fc1f90aec",
@@ -111,7 +104,6 @@ export async function getTickets() {
                     lastname: "Robert",
                     position: "DevOps Engineer",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "dc9e6679-7425-40de-944b-e07fc1f90aed",
@@ -125,7 +117,6 @@ export async function getTickets() {
                     lastname: "Lefebvre",
                     position: "Backend Developer",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "ec9e6679-7425-40de-944b-e07fc1f90aee",
@@ -139,7 +130,6 @@ export async function getTickets() {
                     lastname: "Garcia",
                     position: "Integration Specialist",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "fc9e6679-7425-40de-944b-e07fc1f90aef",
@@ -153,7 +143,6 @@ export async function getTickets() {
                     lastname: "Michel",
                     position: "Customer Support",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
             {
                 id: "gc9e6679-7425-40de-944b-e07fc1f90aeg",
@@ -167,7 +156,6 @@ export async function getTickets() {
                     lastname: "Simon",
                     position: "Database Administrator",
                 },
-                createdAt: "2024-01-31T10:00:00Z"
             },
         ],
     };
