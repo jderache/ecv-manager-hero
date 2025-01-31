@@ -2,9 +2,26 @@
 
 import { PropsWithChildren, createContext, useContext, useState, useEffect } from "react";
 
+export type TicketType = "bug" | "feature" | "support" | "technical";
+export type TicketPriority = "low" | "medium" | "high" | "critical";
+
+export interface Ticket {
+    id: string;
+    type: TicketType;
+    priority: string;
+    lifetime: number;
+    title: string;
+    description: string;
+    author: {
+        firstname: string;
+        lastname: string;
+        position: string;
+    };
+}
+
 type GameContextType = {
     score: number;
-    tickets: Ticket[];
+    tickets: (Ticket & { createdAt?: number })[];
     isPlaying: boolean;
     playTime: number;
     start: () => void;
@@ -19,24 +36,19 @@ type GameContextType = {
     }[];
 };
 
-export type TicketType = "bug" | "feature" | "support" | "technical";
-
-export type TicketPriority = "low" | "medium" | "high" | "critical";
-
-export const ticketTypes = ["bug", "feature", "support", "technical"];
-
-export const ticketPriorities = ["low", "medium", "high", "critical"] as const;
+export const ticketTypes: TicketType[] = ["bug", "feature", "support", "technical"];
+export const ticketPriorities: TicketPriority[] = ["low", "medium", "high", "critical"];
 
 export const GameContext = createContext<GameContextType>({} as GameContextType);
 
-export const GameContextProvider = ({ children, tickets }: PropsWithChildren & { tickets: Ticket[] }) => {
+export const GameContextProvider = ({ children, tickets }: PropsWithChildren<{ tickets: Ticket[] }>) => {
     const [score, setScore] = useState(100);
     const [currentTickets, setCurrentTickets] = useState<(Ticket & { createdAt?: number })[]>([]);
     const [isPlaying, setIsPlaying] = useState(false);
     const [startTime, setStartTime] = useState<number | null>(null);
     const [playTime, setPlayTime] = useState(0);
     const [isRush, setIsRush] = useState(false);
-    const [rushTimeout, setRushTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [rushTimeout, setRushTimeout] = useState<NodeJS.Timeout | undefined>();
     const [results, setResults] = useState<{
         type: TicketType;
         errors: number;
@@ -49,6 +61,8 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
     ]);
 
     const generateTicket = () => {
+        if (!isPlaying) return;
+        
         setCurrentTickets(prevCurrentTickets => {
             const remainingTickets = tickets.filter(ticket => !prevCurrentTickets.some(t => t.id === ticket.id));
 
@@ -62,9 +76,11 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
     };
 
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: NodeJS.Timeout | undefined;
 
-        if (isPlaying) interval = setInterval(generateTicket, isRush ? 1000 : 3000);
+        if (isPlaying) {
+            interval = setInterval(generateTicket, isRush ? 1000 : 3000);
+        }
 
         return () => {
             if (interval) clearInterval(interval);
@@ -72,21 +88,20 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
     }, [isPlaying, isRush]);
 
     useEffect(() => {
-        let timeInterval: NodeJS.Timeout;
+        let timeInterval: NodeJS.Timeout | undefined;
 
         if (isPlaying && startTime) {
             timeInterval = setInterval(() => {
                 const currentTime = Date.now();
                 setPlayTime(Math.floor((currentTime - startTime) / 1000));
-                if (!isRush) {
-                    if (Math.random() < 0.02) {
-                        setIsRush(true);
-                        generateTicket();
-                        const timeout = setTimeout(() => {
-                            setIsRush(false);
-                        }, 10000);
-                        setRushTimeout(timeout);
-                    }
+                
+                if (!isRush && Math.random() < 0.02) {
+                    setIsRush(true);
+                    generateTicket();
+                    const timeout = setTimeout(() => {
+                        setIsRush(false);
+                    }, 10000);
+                    setRushTimeout(timeout);
                 }
             }, 1000);
         }
@@ -98,83 +113,27 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
     }, [isPlaying, startTime, isRush]);
 
     useEffect(() => {
+        if (!isPlaying) return;
+        
         const ticketInterval = setInterval(() => {
             const now = Date.now();
             setCurrentTickets(prev => {
-                const expiredTickets = prev.filter(ticket => {
-                    if (!ticket.createdAt) return true;
-
-                    const isExpired = now - ticket.createdAt >= ticket.lifetime;
-                    if (isExpired) {
-                        // divide by 2 because this useEffect is called twice
-                        updateScore(-15 / 2);
-                    }
-                    return !isExpired;
+                const newTickets = prev.filter(ticket => {
+                    if (!ticket.createdAt) return false;
+                    return now - ticket.createdAt < ticket.lifetime;
                 });
-                return expiredTickets;
+
+                const expiredCount = prev.length - newTickets.length;
+                if (expiredCount > 0) {
+                    updateScore(expiredCount * -15);
+                }
+
+                return newTickets;
             });
         }, 1000);
-
+    
         return () => clearInterval(ticketInterval);
-    }, []);
-
-    const start = () => {
-        setScore(100);
-        setCurrentTickets([]);
-        setIsPlaying(true);
-        setStartTime(Date.now());
-        setPlayTime(0);
-        generateTicket();
-    };
-
-    const end = () => {
-        setIsPlaying(false);
-        setStartTime(null);
-        if (rushTimeout) {
-            clearTimeout(rushTimeout);
-            setRushTimeout(null);
-        }
-        setIsRush(false);
-    };
-
-    const updateResults = (ticketType: TicketType, isResolved: boolean) => {
-        setResults(prevResults => {
-            return prevResults.map(result => {
-                if (result.type === ticketType) {
-                    return {
-                        ...result,
-                        errors: isResolved ? result.errors : result.errors + 1,
-                        resolved: isResolved ? result.resolved + 1 : result.resolved,
-                    };
-                }
-                return result;
-            });
-        });
-    };
-
-    const resolveTicket = (ticket: Ticket, answer: TicketType) => {
-        if (ticket.type === answer) {
-            updateScore(10);
-            updateResults(ticket.type, true);
-        } else {
-            updateScore(-30);
-            updateResults(ticket.type, false);
-        }
-
-        removeTicket(ticket);
-    };
-
-    const removeTicket = (ticket: Ticket) => {
-        setCurrentTickets(prev => prev.filter(t => t.id !== ticket.id));
-    };
-
-    const handleSetIsRush = (value: boolean) => {
-        setIsRush(value);
-        if (!value && rushTimeout) {
-            clearTimeout(rushTimeout);
-            setRushTimeout(null);
-        }
-    };
+    }, [isPlaying]);
 
     const updateScore = (change: number) => {
         setScore(prevScore => {
@@ -185,6 +144,61 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
             }
             return newScore;
         });
+    };
+
+    const start = () => {
+        setScore(100);
+        setCurrentTickets([]);
+        setResults([
+            { type: "bug", errors: 0, resolved: 0 },
+            { type: "feature", errors: 0, resolved: 0 },
+            { type: "support", errors: 0, resolved: 0 },
+            { type: "technical", errors: 0, resolved: 0 },
+        ]);
+        setIsPlaying(true);
+        setStartTime(Date.now());
+        setPlayTime(0);
+        setIsRush(false);
+    };
+
+    const end = () => {
+        setIsPlaying(false);
+        setStartTime(null);
+        if (rushTimeout) {
+            clearTimeout(rushTimeout);
+            setRushTimeout(undefined);
+        }
+        setIsRush(false);
+        setCurrentTickets([]);
+    };
+
+    const updateResults = (ticketType: TicketType, isResolved: boolean) => {
+        setResults(prevResults => 
+            prevResults.map(result => 
+                result.type === ticketType
+                    ? {
+                        ...result,
+                        errors: isResolved ? result.errors : result.errors + 1,
+                        resolved: isResolved ? result.resolved + 1 : result.resolved,
+                    }
+                    : result
+            )
+        );
+    };
+
+    const resolveTicket = (ticket: Ticket, answer: TicketType) => {
+        const isCorrect = ticket.type === answer;
+        updateScore(isCorrect ? 10 : -30);
+        updateResults(ticket.type, isCorrect);
+        setCurrentTickets(prev => prev.filter(t => t.id !== ticket.id));
+    };
+
+    const handleSetIsRush = (value: boolean) => {
+        setIsRush(value);
+        if (!value && rushTimeout) {
+            clearTimeout(rushTimeout);
+            setRushTimeout(undefined);
+        }
     };
 
     return (
@@ -206,5 +220,9 @@ export const GameContextProvider = ({ children, tickets }: PropsWithChildren & {
 };
 
 export const useGameContext = () => {
-    return useContext(GameContext);
+    const context = useContext(GameContext);
+    if (!context) {
+        throw new Error("useGameContext must be used within a GameContextProvider");
+    }
+    return context;
 };
