@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import Link from "next/link";
+import { FeatureSteps } from "@/components/blocks/feature-section";
 
 const MovingBubbles = () => {
   const [bubbles, setBubbles] = useState<
@@ -59,16 +60,41 @@ const MovingBubbles = () => {
   );
 };
 
+const features = [
+  {
+    step: 'Step 1',
+    title: 'Triez les tickets',
+    content: 'Analysez et classifiez rapidement les tickets entrants en 4 catégories : bugs, features, support et technique. Chaque bonne classification rapporte 10 points !',
+    image: '/images/1.png'
+  },
+  {
+    step: 'Step 2',
+    title: 'Gérez votre score',
+    content: 'Maintenez votre score au-dessus de 0. Attention aux erreurs de classification qui vous coûtent 30 points, et aux tickets expirés qui en retirent 15 !',
+    image: '/images/2.png'
+  },
+  {
+    step: 'Step 3',
+    title: 'Survivez au Rush',
+    content: 'Préparez-vous aux périodes de rush où les tickets arrivent plus rapidement. Gardez votre sang-froid pendant ces 10 secondes intenses !',
+    image: '/images/3.png'
+  },
+  {
+    step: 'Step 4',
+    title: 'Battez des records',
+    content: 'Démarrez avec 100 points et voyez combien de temps vous pouvez tenir. Chaque seconde compte dans cette course contre la montre !',
+    image: '/images/4.png'
+  },
+]
+
 export default function GamePage() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center">
       <MovingBubbles />
       <div className="text-center space-y-8 relative">
-        <h1 className="text-4xl font-bold mb-8 px-8">
-          Become a project management expert...
-          <br />
-          by playing !
-        </h1>
+        <div>
+          <FeatureSteps features={features} title="Become an Elite Project Manager!" subtitle="Sort, manage and survive in this ticket management challenge" autoPlayInterval={4000} imageHeight="h-[500px]" />
+        </div>
         <Link href="/game">
           <RainbowButton>Let&apos;s go&nbsp;!</RainbowButton>
         </Link>
